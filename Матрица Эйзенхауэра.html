@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Матрица Эйзенхауэра</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <h1>
+            Матрица Эйзенхауэра
+        </h1>
+
+        <p>
+            Распределите свои задачи по степени важности и срочности
+        </p>
+
+    </header>
+
+
+
+    <main class="container">
+
+        <aside class="sidebar">
+
+            <h2>
+                Новая задача
+            </h2>
+
+            <div class="form-group">
+
+                <label for="taskTitle">
+                    Название задачи
+                </label>
+
+                <input
+                    type="text"
+                    id="taskTitle"
+                    placeholder="Введите задачу"
+                    autocomplete="off">
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="taskDescription">
+                    Описание
+                </label>
+
+                <textarea
+                    id="taskDescription"
+                    rows="4"
+                    placeholder="Краткое описание">
+
+                </textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="taskDate">
+                    Срок выполнения
+                </label>
+
+                <input
+                    type="date"
+                    id="taskDate">
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="taskType">
+                    Квадрант
+                </label>
+
+                <select id="taskType">
+
+                    <option value="importantUrgent">
+                        Важно • Срочно
+                    </option>
+
+                    <option value="importantNotUrgent">
+                        Важно • Не срочно
+                    </option>
+
+                    <option value="notImportantUrgent">
+                        Не важно • Срочно
+                    </option>
+
+                    <option value="notImportantNotUrgent">
+                        Не важно • Не срочно
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <span class="label-text">
+                    Цветовая метка
+                </span>
+
+                <div class="color-picker" id="taskColorPicker" role="radiogroup" aria-label="Цветовая метка">
+
+                    <label class="color-option" title="Без метки">
+                        <input type="radio" name="taskColor" value="none" checked>
+                        <span class="color-swatch color-none"></span>
+                    </label>
+
+                    <label class="color-option" title="Красный">
+                        <input type="radio" name="taskColor" value="red">
+                        <span class="color-swatch color-red"></span>
+                    </label>
+
+                    <label class="color-option" title="Оранжевый">
+                        <input type="radio" name="taskColor" value="orange">
+                        <span class="color-swatch color-orange"></span>
+                    </label>
+
+                    <label class="color-option" title="Зелёный">
+                        <input type="radio" name="taskColor" value="green">
+                        <span class="color-swatch color-green"></span>
+                    </label>
+
+                    <label class="color-option" title="Синий">
+                        <input type="radio" name="taskColor" value="blue">
+                        <span class="color-swatch color-blue"></span>
+                    </label>
+
+                    <label class="color-option" title="Фиолетовый">
+                        <input type="radio" name="taskColor" value="purple">
+                        <span class="color-swatch color-purple"></span>
+                    </label>
+
+                </div>
+
+            </div>
+
+            <button type="button" id="addTask">
+                Добавить задачу
+            </button>
+
+            <p class="sidebar-hint">
+                Перетаскивайте карточки между квадрантами. Клик по карточке — редактирование.
+            </p>
+
+        </aside>
+
+
+
+        <div class="main-column">
+
+            <section class="toolbar" aria-label="Поиск и фильтры">
+
+                <div class="toolbar-row">
+
+                    <label class="toolbar-search">
+                        <span class="visually-hidden">Поиск</span>
+                        <input
+                            type="search"
+                            id="searchInput"
+                            placeholder="Поиск по названию и описанию…"
+                            autocomplete="off">
+                    </label>
+
+                    <select id="filterQuadrant" aria-label="Фильтр по квадранту">
+                        <option value="all">Все квадранты</option>
+                        <option value="importantUrgent">Важно • Срочно</option>
+                        <option value="importantNotUrgent">Важно • Не срочно</option>
+                        <option value="notImportantUrgent">Не важно • Срочно</option>
+                        <option value="notImportantNotUrgent">Не важно • Не срочно</option>
+                    </select>
+
+                    <select id="filterLabel" aria-label="Фильтр по метке">
+                        <option value="all">Все метки</option>
+                        <option value="none">Без метки</option>
+                        <option value="red">Красный</option>
+                        <option value="orange">Оранжевый</option>
+                        <option value="green">Зелёный</option>
+                        <option value="blue">Синий</option>
+                        <option value="purple">Фиолетовый</option>
+                    </select>
+
+                    <label class="toolbar-sort">
+                        <input type="checkbox" id="sortByDate">
+                        Сортировка по сроку
+                    </label>
+
+                </div>
+
+                <p class="toolbar-stats" id="toolbarStats" aria-live="polite"></p>
+
+            </section>
+
+
+
+            <section class="matrix">
+
+                <article class="quadrant urgent-important" data-quadrant="importantUrgent">
+
+                    <header>
+                        <h2>
+                            Важно • Срочно
+                        </h2>
+                        <p>
+                            Сделать немедленно
+                        </p>
+                    </header>
+
+                    <div
+                        class="task-list"
+                        id="importantUrgent"
+                        data-drop-zone="importantUrgent">
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="quadrant important" data-quadrant="importantNotUrgent">
+
+                    <header>
+                        <h2>
+                            Важно • Не срочно
+                        </h2>
+                        <p>
+                            Запланировать
+                        </p>
+                    </header>
+
+                    <div
+                        class="task-list"
+                        id="importantNotUrgent"
+                        data-drop-zone="importantNotUrgent">
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="quadrant urgent" data-quadrant="notImportantUrgent">
+
+                    <header>
+                        <h2>
+                            Не важно • Срочно
+                        </h2>
+                        <p>
+                            Делегировать
+                        </p>
+                    </header>
+
+                    <div
+                        class="task-list"
+                        id="notImportantUrgent"
+                        data-drop-zone="notImportantUrgent">
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="quadrant normal" data-quadrant="notImportantNotUrgent">
+
+                    <header>
+                        <h2>
+                            Не важно • Не срочно
+                        </h2>
+                        <p>
+                            Исключить
+                        </p>
+                    </header>
+
+                    <div
+                        class="task-list"
+                        id="notImportantNotUrgent"
+                        data-drop-zone="notImportantNotUrgent">
+
+                    </div>
+
+                </article>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <footer class="footer">
+
+        <span class="save-indicator" id="saveIndicator" aria-live="polite"></span>
+
+        <button type="button" id="exportJson">
+            Экспорт JSON
+        </button>
+
+        <button type="button" id="exportPdf">
+            Экспорт PDF
+        </button>
+
+        <button type="button" id="clear">
+            Очистить
+        </button>
+
+    </footer>
+
+
+
+    <div class="modal-overlay hidden" id="editModal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+
+        <div class="modal">
+
+            <header class="modal-header">
+
+                <h2 id="editModalTitle">
+                    Редактирование задачи
+                </h2>
+
+                <button type="button" class="modal-close" id="editModalClose" aria-label="Закрыть">
+                    ×
+                </button>
+
+            </header>
+
+            <form id="editForm" class="modal-body">
+
+                <input type="hidden" id="editTaskId">
+
+                <div class="form-group">
+
+                    <label for="editTitle">
+                        Название
+                    </label>
+
+                    <input type="text" id="editTitle" required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="editDescription">
+                        Описание
+                    </label>
+
+                    <textarea id="editDescription" rows="4"></textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="editDate">
+                        Срок
+                    </label>
+
+                    <input type="date" id="editDate">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="editQuadrant">
+                        Квадрант
+                    </label>
+
+                    <select id="editQuadrant">
+                        <option value="importantUrgent">Важно • Срочно</option>
+                        <option value="importantNotUrgent">Важно • Не срочно</option>
+                        <option value="notImportantUrgent">Не важно • Срочно</option>
+                        <option value="notImportantNotUrgent">Не важно • Не срочно</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <span class="label-text">
+                        Цветовая метка
+                    </span>
+
+                    <div class="color-picker" id="editColorPicker" role="radiogroup" aria-label="Цветовая метка">
+
+                        <label class="color-option">
+                            <input type="radio" name="editColor" value="none">
+                            <span class="color-swatch color-none"></span>
+                        </label>
+
+                        <label class="color-option">
+                            <input type="radio" name="editColor" value="red">
+                            <span class="color-swatch color-red"></span>
+                        </label>
+
+                        <label class="color-option">
+                            <input type="radio" name="editColor" value="orange">
+                            <span class="color-swatch color-orange"></span>
+                        </label>
+
+                        <label class="color-option">
+                            <input type="radio" name="editColor" value="green">
+                            <span class="color-swatch color-green"></span>
+                        </label>
+
+                        <label class="color-option">
+                            <input type="radio" name="editColor" value="blue">
+                            <span class="color-swatch color-blue"></span>
+                        </label>
+
+                        <label class="color-option">
+                            <input type="radio" name="editColor" value="purple">
+                            <span class="color-swatch color-purple"></span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <footer class="modal-footer">
+
+                    <button type="button" class="btn-danger" id="editDelete">
+                        Удалить
+                    </button>
+
+                    <div class="modal-footer-actions">
+
+                        <button type="button" class="btn-secondary" id="editCancel">
+                            Отмена
+                        </button>
+
+                        <button type="submit" class="btn-primary">
+                            Сохранить
+                        </button>
+
+                    </div>
+
+                </footer>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Матрица Эйзенхауэра — бесплатный планировщик задач по важности и срочности. Работает в браузере, данные сохраняются локально.">
+    <title>Матрица Эйзенхауэра — приоритеты без хаоса</title>
+    <link rel="stylesheet" href="landing.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header-inner">
+            <a class="logo" href="index.html">Матрица Эйзенхауэра</a>
+            <nav class="site-nav" aria-label="Основная навигация">
+                <a href="#about">О методе</a>
+                <a href="#features">Возможности</a>
+                <a class="nav-cta" href="app.html">Открыть планировщик</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <p class="hero-badge">Планирование в браузере · без регистрации</p>
+                <h1>Расставьте приоритеты<br>по матрице Эйзенхауэра</h1>
+                <p class="hero-lead">
+                    Разделите задачи на четыре квадранта: что делать сейчас, что запланировать,
+                    что делегировать и от чего отказаться. Всё сохраняется на вашем устройстве.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary btn-lg" href="app.html">Начать планирование</a>
+                    <a class="btn btn-secondary btn-lg" href="#about">Узнать больше</a>
+                </div>
+                <p class="hero-stats" id="heroStats" aria-live="polite"></p>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="mini-matrix">
+                    <div class="mini-quadrant q1">
+                        <span class="mini-title">Важно · Срочно</span>
+                        <span class="mini-task">Подготовить отчёт</span>
+                    </div>
+                    <div class="mini-quadrant q2">
+                        <span class="mini-title">Важно · Не срочно</span>
+                        <span class="mini-task">Обучение</span>
+                    </div>
+                    <div class="mini-quadrant q3">
+                        <span class="mini-title">Не важно · Срочно</span>
+                        <span class="mini-task">Письма</span>
+                    </div>
+                    <div class="mini-quadrant q4">
+                        <span class="mini-title">Не важно · Не срочно</span>
+                        <span class="mini-task">Лишнее</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="section-inner">
+                <h2>Зачем нужна матрица</h2>
+                <p class="section-intro">
+                    Президент США Дуайт Эйзенхауэр пользовался простым правилом:
+                    срочное не всегда важное, а важное не всегда срочное.
+                    Матрица помогает не тонуть в «пожарах» и находить время для стратегии.
+                </p>
+                <div class="quadrant-cards">
+                    <article class="quadrant-card q1">
+                        <h3>Важно и срочно</h3>
+                        <p>Кризисы и дедлайны — делайте сами, немедленно.</p>
+                    </article>
+                    <article class="quadrant-card q2">
+                        <h3>Важно, не срочно</h3>
+                        <p>Развитие, здоровье, отношения — планируйте заранее.</p>
+                    </article>
+                    <article class="quadrant-card q3">
+                        <h3>Не важно, срочно</h3>
+                        <p>Отвлечения и чужие «горящие» задачи — делегируйте или ограничивайте.</p>
+                    </article>
+                    <article class="quadrant-card q4">
+                        <h3>Не важно и не срочно</h3>
+                        <p>Шум и прокрастинация — смело убирайте из списка.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt" id="features">
+            <div class="section-inner">
+                <h2>Что умеет планировщик</h2>
+                <ul class="feature-list">
+                    <li>
+                        <strong>Четыре квадранта</strong>
+                        — добавляйте задачи с описанием, сроком и цветовой меткой.
+                    </li>
+                    <li>
+                        <strong>Drag-and-drop</strong>
+                        — перетаскивайте карточки между квадрантами на компьютере и телефоне.
+                    </li>
+                    <li>
+                        <strong>Поиск и фильтры</strong>
+                        — быстро находите нужное по тексту, квадранту или метке.
+                    </li>
+                    <li>
+                        <strong>Автосохранение</strong>
+                        — данные хранятся в localStorage вашего браузера.
+                    </li>
+                    <li>
+                        <strong>Экспорт</strong>
+                        — выгрузка в JSON или печать в PDF для архива или совещания.
+                    </li>
+                </ul>
+                <p class="section-cta">
+                    <a class="btn btn-primary" href="app.html">Перейти к задачам</a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <p>Матрица Эйзенхауэра — учебный open-source проект. Данные не отправляются на сервер.</p>
+            <p><a href="app.html">Планировщик</a> · <a href="https://github.com" rel="noopener noreferrer">GitHub</a> (укажите ссылку после публикации)</p>
+        </div>
+    </footer>
+
+    <script src="landing.js"></script>
+</body>
+</html>
