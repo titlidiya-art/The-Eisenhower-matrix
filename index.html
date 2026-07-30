@@ -6,6 +6,13 @@
     <meta name="description" content="Матрица Эйзенхауэра — бесплатный планировщик задач по важности и срочности. Работает в браузере, данные сохраняются локально.">
     <title>Матрица Эйзенхауэра — приоритеты без хаоса</title>
     <link rel="stylesheet" href="landing.css">
+    <script>
+        (function () {
+            if (localStorage.getItem("landing-theme") === "deep-blue") {
+                document.documentElement.setAttribute("data-theme", "deep-blue");
+            }
+        })();
+    </script>
 </head>
 <body>
     <header class="site-header">
@@ -54,6 +61,7 @@
                 </div>
             </div>
         </section>
+     
         <section class="section" id="about">
             <div class="section-inner">
                 <h2>Зачем нужна матрица</h2>
@@ -118,7 +126,11 @@
             <p>Матрица Эйзенхауэра — учебный open-source проект. Данные не отправляются на сервер.</p>
             <p><a href="app.html">Планировщик</a> · <a href="https://github.com" rel="noopener noreferrer">GitHub</a> (укажите ссылку после публикации)</p>
         </div>
-    </footer>
+    </footer>   
+    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Переключить тему" title="Сменить тему">
+        <span class="theme-toggle-icon theme-toggle-icon--light" aria-hidden="true">☀</span>
+        <span class="theme-toggle-icon theme-toggle-icon--deep" aria-hidden="true">☾</span>
+    </button>
     <script src="landing.js"></script>
 </body>
 </html>
